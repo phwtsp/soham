@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Soham - Meditation & Breathing App</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                        "brand-blue": "#084D75",
+                        "brand-blue-light": "#0B5A8A",
+                        "brand-green": "#D1E9DE",
+                        "brand-mint": "#D1E9DE",
+                        "brand-green-dark": "#b0c9be",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "Noto Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+
+    <!-- React Dependencies -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-brand-blue font-display antialiased overflow-x-hidden">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Required Destructuring
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Helper Components ---
+
+        const BottomNav = () => {
+            const navigate = useNavigate();
+            const location = useLocation();
+
+            const getIconClass = (path) => {
+                return location.pathname === path ? "material-symbols-outlined icon-filled text-[28px]" : "material-symbols-outlined text-[28px]";
+            };
+
+            const getTextClass = (path) => {
+                return location.pathname === path ? "text-[10px] font-bold text-brand-blue" : "text-[10px] font-bold text-brand-blue/40";
+            };
+
+            return (
+                <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-brand-green/30 pb-safe pt-2 px-6 z-50">
+                    <div className="flex justify-around items-center h-16 max-w-md mx-auto">
+                        <Link to="/" className="flex flex-col items-center gap-1 transition-colors group">
+                            <span className={getIconClass('/')}>spa</span>
+                            <span className={getTextClass('/')}>Início</span>
+                        </Link>
+                        <Link to="/stats" className="flex flex-col items-center gap-1 transition-colors group">
+                            <span className={getIconClass('/stats')}>bar_chart</span>
+                            <span className={getTextClass('/stats')}>Estatísticas</span>
+                        </Link>
+                        <Link to="/profile" className="flex flex-col items-center gap-1 transition-colors group">
+                            <span className={getIconClass('/profile')}>person</span>
+                            <span className={getTextClass('/profile')}>Perfil</span>
+                        </Link>
+                    </div>
+                </div>
+            );
+        };
+
+        // --- Screen Components ---
+
+        // Screen 1: Dashboard / Stats
+        const DashboardScreen = () => {
+            return (
+                <div className="relative flex h-auto min-h-screen w-full flex-col max-w-md mx-auto pb-24">
+                    {/* Header */}
+                    <div className="flex items-center p-6 pb-2 justify-between">
+                        <h2 className="text-brand-blue text-2xl font-bold leading-tight tracking-tight flex-1">Estatísticas</h2>
+                        <div className="flex items-center justify-end gap-3">
+                            <Link to="/settings" className="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-brand-green/30 hover:bg-brand-green/50 transition-colors text-brand-blue">
+                                <span className="material-symbols-outlined">settings</span>
+                            </Link>
+                            <Link to="/profile" className="h-10 w-10 rounded-full bg-brand-blue overflow-hidden border-2 border-white shadow-sm">
+                                <img alt="User profile avatar showing a smiling woman" className="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGpEfjojPlP_JhbweV3Y822YXAQXtRvNSOE0uGgSjW7kPUcfhsetn_HplsfLaDXe9dqnTDv4a2T9lROeWYbLhHHO5PYp8z5GigdMMuya6o9-QFMiaLKsB-Ike7RxWje0R7eVJRqkT2UwJ7gSyHnoSeCve5vegnn3y1l3qsBlORPM97KxeoJxQ-68ejCxj0xrtNY0wlB26x5r3Bf1P6rjJGTEJNR5ve-IWwDnvd8l7O6magGM6cRxcE69ACHqxjUCq-xAAK1ncLjTU"/>
+                            </Link>
+                        </div>
+                    </div>
+                    {/* Streak Section */}
+                    <div className="px-6 py-4">
+                        <div className="relative overflow-hidden rounded-lg bg-brand-green p-6 shadow-sm">
+                            <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/20 blur-2xl"></div>
+                            <div className="flex items-center justify-between relative z-10">
+                                <div className="flex flex-col gap-1">
+                                    <span className="text-brand-blue/70 text-sm font-semibold uppercase tracking-wider">Sequência Atual</span>
+                                    <div className="flex items-baseline gap-2">
+                                        <span className="text-brand-blue text-5xl font-bold leading-none tracking-tight">3</span>
+                                        <span className="text-brand-blue text-lg font-medium">dias seguidos</span>
+                                    </div>
+                                </div>
+                                <div className="flex items-center justify-center h-14 w-14 rounded-full bg-white shadow-sm text-brand-blue">
+                                    <span className="material-symbols-outlined icon-filled text-[#f9bc06] !text-[32px]">local_fire_department</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Chart Section */}
+                    <div className="px-6 py-2">
+                        <div className="flex flex-col gap-4 rounded-lg bg-brand-green p-6 shadow-sm">
+                            <div className="flex justify-between items-start">
+                                <div className="flex flex-col gap-1">
+                                    <p className="text-brand-blue/80 text-sm font-semibold uppercase tracking-wider">Minutos por dia</p>
+                                    <p className="text-brand-blue text-3xl font-bold leading-tight">135m <span className="text-base font-normal opacity-60">Total</span></p>
+                                </div>
+                                <div className="bg-white/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                                    <p className="text-brand-blue text-xs font-bold uppercase tracking-wide">Últimos 7 dias</p>
+                                </div>
+                            </div>
+                            {/* Bar Chart Mockup */}
+                            <div className="mt-4 flex items-end justify-between gap-3 h-[180px]">
+                                {[
+                                    { day: 'S', height: '45%', delay: '0' },
+                                    { day: 'T', height: '25%', delay: '75' },
+                                    { day: 'Q', height: '60%', delay: '100' },
+                                    { day: 'Q', height: '30%', delay: '150' },
+                                    { day: 'S', height: '0%', delay: '200' },
+                                    { day: 'S', height: '75%', delay: '200' },
+                                ].map((bar, idx) => (
+                                    <div key={idx} className="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+                                        <div className="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+                                            <div className="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out" style={{height: bar.height, transitionDelay: `${bar.delay}ms`}}></div>
+                                        </div>
+                                        <p className="text-brand-blue/60 text-xs font-bold">{bar.day}</p>
+                                    </div>
+                                ))}
+                                {/* Sunday (Today) */}
+                                <div className="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+                                    <div className="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center">
+                                        <div className="w-full bg-primary rounded-full shadow-[0_0_15px_rgba(249,245,6,0.4)] transition-all duration-500 ease-out delay-300" style={{height: '50%'}}></div>
+                                    </div>
+                                    <p className="text-brand-blue font-extrabold text-xs">D</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Recent Sessions */}
+                    <h2 className="text-brand-blue text-xl font-bold leading-tight px-6 text-left pb-3 pt-6">Sessões Recentes</h2>
+                    <div className="flex flex-col gap-3 px-6">
+                         <Link to="/player-active" className="flex items-center gap-4 bg-white p-2 pr-5 rounded-full shadow-sm border border-brand-green/30 hover:border-brand-green transition-colors">
+                            <div className="flex items-center justify-center rounded-full bg-brand-green shrink-0 h-12 w-12 text-brand-blue">
+                                <span className="material-symbols-outlined icon-filled">self_improvement</span>
+                            </div>
+                            <div className="flex flex-col flex-1 overflow-hidden">
+                                <p className="text-brand-blue text-base font-bold leading-snug truncate">Mindfulness</p>
+                                <div className="flex items-center gap-2 text-xs font-medium text-brand-blue/60">
+                                    <span>Hoje</span>
+                                    <span className="w-1 h-1 rounded-full bg-brand-blue/30"></span>
+                                    <span>08:30</span>
+                                </div>
+                            </div>
+                            <div className="shrink-0 bg-background-light px-3 py-1 rounded-full">
+                                <p className="text-brand-blue text-sm font-semibold">15 min</p>
+                            </div>
+                        </Link>
+                         <Link to="/player-active" className="flex items-center gap-4 bg-white p-2 pr-5 rounded-full shadow-sm border border-brand-green/30 hover:border-brand-green transition-colors">
+                            <div className="flex items-center justify-center rounded-full bg-brand-green shrink-0 h-12 w-12 text-brand-blue">
+                                <span className="material-symbols-outlined icon-filled">bedtime</span>
+                            </div>
+                            <div className="flex flex-col flex-1 overflow-hidden">
+                                <p className="text-brand-blue text-base font-bold leading-snug truncate">Sono Profundo</p>
+                                <div className="flex items-center gap-2 text-xs font-medium text-brand-blue/60">
+                                    <span>Ontem</span>
+                                    <span className="w-1 h-1 rounded-full bg-brand-blue/30"></span>
+                                    <span>22:15</span>
+                                </div>
+                            </div>
+                            <div className="shrink-0 bg-background-light px-3 py-1 rounded-full">
+                                <p className="text-brand-blue text-sm font-semibold">20 min</p>
+                            </div>
+                        </Link>
+                    </div>
+                    <BottomNav />
+                </div>
+            );
+        };
+
+        // Screen 2: Premium / Paywall
+        const PremiumScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="dark bg-brand-blue text-white font-display antialiased selection:bg-brand-mint selection:text-brand-blue h-full min-h-screen">
+                    <div className="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col overflow-x-hidden shadow-2xl">
+                        <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 pt-6">
+                            <button onClick={() => navigate(-1)} className="flex h-10 w-10 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition hover:bg-black/30">
+                                <span className="material-symbols-outlined" style={{fontSize: '24px'}}>close</span>
+                            </button>
+                            <div className="rounded-full bg-brand-mint/10 px-3 py-1 backdrop-blur-md">
+                                <span className="text-brand-mint text-xs font-bold uppercase tracking-wider">Premium</span>
+                            </div>
+                        </div>
+                        <div className="relative h-[320px] w-full shrink-0">
+                            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuB26Y9weXtVEfRKBRzvcnEZiiV5YC5gNiszRYrLHs1e96ibUXWROCLwxW_F-iVtdB-tSbXy2Y_x0QppZOvdFAJ9c6Mdyb1S8TrFjc0poPm14nUTUzTT1xjd-eEGqlz0GYSSs4JvloHLph2z5NJ0LlYB1FfOQL_O3rIe1yXxHKyg8tKivl0cF-5cu9bbTztZFDTvzHIUbIVwsx6Qn48DcXcRMUR6cWre86JVdy0x65VBAaiu9FnqMfBzQfUZPqg9z2lXaJ1Q81IXGVw")'}}></div>
+                            <div className="absolute inset-0 bg-gradient-to-b from-brand-blue/30 via-brand-blue/60 to-brand-blue"></div>
+                        </div>
+                        <div className="relative z-10 -mt-20 flex flex-1 flex-col px-6 pb-6">
+                            <div className="text-center mb-8">
+                                <h1 className="text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-sm mb-2">
+                                    Desbloqueie sua<br/><span className="text-brand-mint">Paz Interior</span>
+                                </h1>
+                                <p className="text-brand-mint/80 text-sm font-medium">Eleve sua prática e encontre o equilíbrio.</p>
+                            </div>
+                            <div className="space-y-4 mb-8">
+                                <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+                                        <span className="material-symbols-outlined" style={{fontSize: '24px'}}>block</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-white text-base">Remover Anúncios</h3>
+                                        <p className="text-brand-mint/70 text-xs">Navegue sem interrupções</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+                                        <span className="material-symbols-outlined" style={{fontSize: '24px'}}>schedule</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-white text-base">Tempos Personalizados</h3>
+                                        <p className="text-brand-mint/70 text-xs">Medite no seu próprio ritmo</p>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+                                        <span className="material-symbols-outlined" style={{fontSize: '24px'}}>monitoring</span>
+                                    </div>
+                                    <div>
+                                        <h3 className="font-bold text-white text-base">Gráficos Avançados</h3>
+                                        <p className="text-brand-mint/70 text-xs">Acompanhe sua jornada diária</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-2 gap-3 mb-6">
+                                <div className="relative flex cursor-pointer flex-col justify-between rounded-2xl border-2 border-primary bg-gradient-to-br from-brand-blue-light to-brand-blue p-4 shadow-lg ring-1 ring-primary/50 transition-transform active:scale-95">
+                                    <div className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-blue shadow-sm">
+                                        Economize 20%
+                                    </div>
+                                    <div className="mt-2">
+                                        <p className="text-brand-mint/80 text-xs font-bold uppercase tracking-wider">Anual</p>
+                                        <p className="mt-1 flex items-baseline gap-0.5">
+                                            <span className="text-2xl font-bold text-white">R$ 199,90</span>
+                                        </p>
+                                        <p className="text-brand-mint/60 text-[10px]">apenas R$ 16,65/mês</p>
+                                    </div>
+                                    <div className="mt-3 flex justify-end">
+                                        <span className="material-symbols-outlined text-primary fill-1" style={{fontVariationSettings: "'FILL' 1"}}>check_circle</span>
+                                    </div>
+                                </div>
+                                <div className="relative flex cursor-pointer flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-4 transition-transform active:scale-95 hover:bg-white/10">
+                                    <div className="mt-2">
+                                        <p className="text-brand-mint/80 text-xs font-bold uppercase tracking-wider">Mensal</p>
+                                        <p className="mt-1 flex items-baseline gap-0.5">
+                                            <span className="text-2xl font-bold text-white">R$ 19,90</span>
+                                        </p>
+                                        <p className="text-brand-mint/60 text-[10px]">Cobrado mensalmente</p>
+                                    </div>
+                                    <div className="mt-3 flex justify-end">
+                                        <span className="material-symbols-outlined text-white/20">radio_button_unchecked</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button className="group relative w-full overflow-hidden rounded-full bg-primary py-4 text-brand-blue shadow-xl transition-all hover:bg-[#fffc4d] active:scale-[0.98]">
+                                <span className="absolute inset-0 bg-white/20 opacity-0 transition-opacity group-hover:opacity-100"></span>
+                                <span className="relative flex items-center justify-center gap-2 text-base font-bold uppercase tracking-wide">
+                                    Assinar Agora
+                                    <span className="material-symbols-outlined" style={{fontSize: '20px'}}>arrow_forward</span>
+                                </span>
+                            </button>
+                            <p className="mt-3 text-center text-xs text-brand-mint/50">Cancelamento grátis a qualquer momento.</p>
+                            <div className="mt-auto flex items-center justify-center gap-6 pt-6 pb-2">
+                                <button className="text-xs font-medium text-brand-mint/60 hover:text-white transition-colors">Restaurar Compras</button>
+                                <div className="h-1 w-1 rounded-full bg-brand-mint/20"></div>
+                                <button className="text-xs font-medium text-brand-mint/60 hover:text-white transition-colors">Termos de Uso</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 3: Create Breathing
+        const CreateBreathingScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto overflow-hidden bg-white dark:bg-background-dark shadow-2xl">
+                    <header className="flex items-center justify-between px-6 pt-12 pb-4 bg-white dark:bg-background-dark z-10 sticky top-0">
+                        <button onClick={() => navigate(-1)} className="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-brand-green/20 active:bg-brand-green/40 transition-colors text-brand-blue dark:text-white">
+                            <span className="material-symbols-outlined text-[28px]">arrow_back</span>
+                        </button>
+                        <h1 className="text-brand-blue dark:text-white text-lg font-bold leading-tight tracking-tight flex-1 text-center">Criar Respiração</h1>
+                        <div className="flex size-10 items-center justify-center"></div>
+                    </header>
+                    <main className="flex-1 flex flex-col px-6 pb-24 overflow-y-auto">
+                        <div className="mt-4 mb-8">
+                            <label className="block group">
+                                <span className="block text-sm font-semibold text-brand-blue/70 dark:text-brand-green/80 mb-2 ml-1 uppercase tracking-wider">Nome do Padrão</span>
+                                <div className="relative flex items-center">
+                                    <input className="w-full bg-brand-green/30 dark:bg-brand-blue/50 text-brand-blue dark:text-white placeholder:text-brand-blue/40 dark:placeholder:text-white/30 rounded-2xl border-0 py-4 px-5 text-lg font-medium focus:ring-2 focus:ring-brand-blue dark:focus:ring-brand-green transition-all" placeholder="Ex: Relaxamento Noturno" type="text" defaultValue="Respiração Matinal"/>
+                                    <span className="material-symbols-outlined absolute right-4 text-brand-blue/40 dark:text-white/40">edit</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div className="w-full aspect-[4/3] bg-brand-blue dark:bg-black/20 rounded-3xl relative overflow-hidden mb-8 shadow-lg group">
+                            <div className="absolute inset-0 opacity-40 mix-blend-overlay bg-cover bg-center" style={{backgroundImage: "url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZGuiRnGx29kNDMS5qEKZmwIA_UPIOrPSB36tVKk0g8yyQ_Z1Tc2kACdbG5fLq13pgSqr4ftLKjECM_1MYkIS1NH-xenN7aOykDT8CdNPv2j8jDROXhDafOGc3hwR4SG8LzRD56jTzAU9rLyXh05FfYRdYyNYrSUMo2JzhbV2i3O7e5bFT_v2tHwJfc-5Qgtt561CBXQ6W18XGUhKayt1GiXL0nUR-VbW3TTYi1tUBu2H3PBFPoIZaZCBnGgJ6FUv2kX_n4BH2Ytg')"}}></div>
+                            <div className="absolute inset-0 flex flex-col items-center justify-center z-10 p-6 text-center">
+                                <div className="relative size-40 flex items-center justify-center">
+                                    <div className="absolute inset-0 rounded-full border-[6px] border-brand-green/20"></div>
+                                    <svg className="absolute inset-0 size-full -rotate-90 transform" viewBox="0 0 100 100">
+                                        <circle cx="50" cy="50" fill="none" r="46" stroke="#f9f506" strokeDasharray="289" strokeDashoffset="100" strokeLinecap="round" strokeWidth="6"></circle>
+                                    </svg>
+                                    <div className="flex flex-col items-center justify-center bg-white/10 backdrop-blur-sm rounded-full size-28 shadow-inner border border-white/10">
+                                        <span className="text-3xl font-bold text-white tracking-tighter">12s</span>
+                                        <span className="text-xs font-medium text-brand-green uppercase tracking-widest mt-0.5">Ciclo</span>
+                                    </div>
+                                </div>
+                                <div className="mt-6 flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+                                    <span className="material-symbols-outlined text-brand-green text-sm">graphic_eq</span>
+                                    <p className="text-brand-green text-sm font-medium">Visualização Dinâmica</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-6">
+                            {/* Slider: Tempo Inspirar */}
+                            <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-white/5">
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-brand-blue dark:text-brand-green">air</span>
+                                        <span className="text-brand-blue dark:text-white font-bold text-base">Tempo Inspirar</span>
+                                    </div>
+                                    <span className="text-2xl font-bold text-brand-blue dark:text-primary tabular-nums">4s</span>
+                                </div>
+                                <div className="relative h-12 flex items-center">
+                                    <div className="w-full h-3 bg-brand-green/40 dark:bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-brand-blue dark:bg-brand-green w-[40%] rounded-full"></div>
+                                    </div>
+                                    <div className="absolute left-[40%] size-8 bg-white border-4 border-brand-blue dark:border-brand-green rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform -ml-4"></div>
+                                </div>
+                            </div>
+                             {/* Slider: Tempo Segurar */}
+                             <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-white/5">
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-brand-blue dark:text-brand-green">pause_circle</span>
+                                        <span className="text-brand-blue dark:text-white font-bold text-base">Tempo Segurar</span>
+                                    </div>
+                                    <span className="text-2xl font-bold text-brand-blue dark:text-primary tabular-nums">2s</span>
+                                </div>
+                                <div className="relative h-12 flex items-center">
+                                    <div className="w-full h-3 bg-brand-green/40 dark:bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-brand-blue dark:bg-brand-green w-[20%] rounded-full"></div>
+                                    </div>
+                                    <div className="absolute left-[20%] size-8 bg-white border-4 border-brand-blue dark:border-brand-green rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform -ml-4"></div>
+                                </div>
+                            </div>
+                             {/* Slider: Tempo Expirar */}
+                             <div className="bg-white dark:bg-white/5 rounded-2xl p-4 shadow-sm border border-slate-100 dark:border-white/5">
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined text-brand-blue dark:text-brand-green" style={{transform: "scaleX(-1)"}}>air</span>
+                                        <span className="text-brand-blue dark:text-white font-bold text-base">Tempo Expirar</span>
+                                    </div>
+                                    <span className="text-2xl font-bold text-brand-blue dark:text-primary tabular-nums">6s</span>
+                                </div>
+                                <div className="relative h-12 flex items-center">
+                                    <div className="w-full h-3 bg-brand-green/40 dark:bg-white/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-brand-blue dark:bg-brand-green w-[60%] rounded-full"></div>
+                                    </div>
+                                    <div className="absolute left-[60%] size-8 bg-white border-4 border-brand-blue dark:border-brand-green rounded-full shadow-md cursor-pointer hover:scale-110 transition-transform -ml-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                    <div className="absolute bottom-0 left-0 w-full bg-white/80 dark:bg-background-dark/90 backdrop-blur-lg border-t border-brand-blue/5 dark:border-white/5 p-6 z-20">
+                        <button onClick={() => navigate('/patterns')} className="w-full bg-brand-blue text-white dark:bg-primary dark:text-brand-blue h-14 rounded-full font-bold text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                            <span className="material-symbols-outlined">check_circle</span>
+                            Salvar Padrão
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 4: Breathing Player (Active) - Merged with elements from Screen 7 & 10 for completeness
+        const ActivePlayerScreen = () => {
+             const navigate = useNavigate();
+             const [stage, setStage] = useState('Inspire');
+             const [time, setTime] = useState(4);
+
+             // Simple mock timer logic
+             useEffect(() => {
+                const interval = setInterval(() => {
+                    setTime(prev => {
+                        if (prev === 1) {
+                            setStage(s => s === 'Inspire' ? 'Expire' : 'Inspire');
+                            return s === 'Inspire' ? 6 : 4; 
+                        }
+                        return prev - 1;
+                    });
+                }, 1000);
+                return () => clearInterval(interval);
+             }, [stage]);
+
+             return (
+                <div className="bg-brand-blue h-screen w-full overflow-hidden flex flex-col relative group/design-root text-white">
+                    <div className="flex items-center justify-between p-6 pt-12 absolute top-0 w-full z-30 pointer-events-none">
+                        <div className="flex items-center pointer-events-auto">
+                            <h2 className="text-white text-xl font-display font-bold leading-tight tracking-tight pl-1 drop-shadow-md">Soham</h2>
+                        </div>
+                        <div className="flex items-center justify-end pointer-events-auto">
+                            <Link to="/profile" className="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md text-white border border-white/10 active:scale-95 duration-200 shadow-sm">
+                                <span className="material-symbols-outlined" style={{fontSize: '22px'}}>account_circle</span>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 flex flex-col items-center justify-center relative w-full z-10 -mt-8">
+                        <div className="relative flex items-center justify-center mb-10">
+                            <div className="absolute size-[320px] rounded-full border border-brand-green/10 opacity-20 scale-105 animate-pulse"></div>
+                            <div className="absolute size-[280px] rounded-full border border-brand-green/20 opacity-30"></div>
+                            <div className="relative size-[250px] rounded-full bg-gradient-to-b from-[#0A5A8A] to-brand-blue shadow-[0_0_50px_rgba(209,233,222,0.15)] flex items-center justify-center overflow-hidden border border-white/10">
+                                <div className="absolute inset-0 opacity-40 bg-cover bg-center mix-blend-overlay" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJt8QxVt2aMzkZJs3Phwmsf_7wT0-9H2XRYYsxhGIBs5ES8rt1796nK3CDbnrXnplxzl29U1PwS8V81_0W1N79ihi0YvfWJNanfjJJSKoIQdu82SgjkLd5Hr6KER97GYyVXadEDvgF-4s24NTDShf6TUjsobY1i2fhsCEHqiDITfaZeeNJ0cUyM6UWaYuxLgM9u7aR3tAGXmeRocEsWw5XVWlk7tWGZuPPwSY3nHazYTvdlqeE6Mn92QkkHcX88AxeH_OpbiZEjTs")'}}></div>
+                                <div className="absolute inset-0 bg-brand-green/5 rounded-full"></div>
+                                <div className="relative z-10 flex flex-col items-center justify-center text-center">
+                                    <span className="text-white text-[72px] font-display font-light leading-none tracking-tighter drop-shadow-lg">{time}<span className="text-3xl font-normal text-brand-green/80 ml-0.5 align-baseline">s</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-3 text-center px-6 max-w-xs mx-auto">
+                            <h1 className="text-white font-display tracking-tight text-4xl font-bold leading-tight drop-shadow-lg">{stage}</h1>
+                            <p className="text-brand-green/90 text-lg font-medium leading-relaxed tracking-wide">{stage === 'Inspire' ? 'Profundamente pelo nariz' : 'Suavemente pela boca'}</p>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-end w-full z-20 pb-[80px] px-6">
+                        <div className="w-full max-w-[360px] flex flex-col gap-4">
+                            <button onClick={() => navigate('/finished')} className="group w-full flex items-center justify-center gap-2 h-12 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 active:bg-white/15 transition-all active:scale-[0.98] backdrop-blur-sm cursor-pointer">
+                                <span className="material-symbols-outlined icon-filled text-brand-green/90" style={{fontSize: '20px'}}>stop_circle</span>
+                                <span className="text-sm font-bold tracking-widest uppercase text-white/90 group-hover:text-white transition-colors">Finalizar</span>
+                            </button>
+                            <Link to="/patterns" className="relative w-full flex items-center justify-between overflow-hidden rounded-2xl h-[72px] bg-brand-green text-brand-blue px-6 shadow-[0_8px_30px_rgb(0,0,0,0.25)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.3)] hover:brightness-105 active:scale-[0.98] transition-all group duration-300">
+                                <div className="flex flex-col items-start gap-1 relative z-10">
+                                    <span className="text-[10px] uppercase font-extrabold tracking-widest opacity-60 text-brand-blue">Padrão Atual</span>
+                                    <span className="truncate text-lg font-display font-bold leading-none pr-2">4-7-8 Relaxamento</span>
+                                </div>
+                                <div className="size-10 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue group-hover:bg-brand-blue/20 transition-colors relative z-10">
+                                    <span className="material-symbols-outlined" style={{fontSize: '24px'}}>chevron_right</span>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+
+                    <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-[#05324d]/85 border-t border-white/5 flex items-center justify-center z-50 backdrop-blur-xl">
+                        <div className="flex flex-col items-center gap-1 opacity-40 hover:opacity-60 transition-opacity cursor-pointer">
+                            <span className="text-white text-[9px] font-bold tracking-widest uppercase">Publicidade</span>
+                            <div className="w-32 h-1 bg-white/20 rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+             );
+        };
+
+        // Screen 5: Session Completed
+        const SessionCompletedScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden h-screen flex flex-col justify-between animate-reveal">
+                    <div className="flex items-center justify-end px-6 pt-12 pb-4">
+                        <button onClick={() => navigate('/stats')} className="flex items-center justify-center p-2 rounded-full text-brand-blue dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+                            <span className="material-symbols-outlined text-[28px]">close</span>
+                        </button>
+                    </div>
+                    <div className="flex-1 flex flex-col items-center px-6 -mt-8 justify-center">
+                        <div className="relative w-full max-w-[280px] aspect-square mb-6">
+                            <div className="absolute inset-0 bg-brand-mint/30 dark:bg-brand-mint/10 rounded-full blur-2xl scale-90"></div>
+                            <div className="relative w-full h-full bg-center bg-contain bg-no-repeat" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTbNkCGliU4_LduMtIPhXSmdG0eMq1LdHeY0cgQ2PFkponKWXG0AtenHEnkjKDfMfp5T49QTmOcWEBO5v47pyAaM6TEVlfl76e976Av5ihQfGL-uoZdLaO58DzHMlbTPxCvIScyDyj8eHe6EbgxVEr8ui6BMLKQepbQOwogcWLHwFvvi7zBwctwhae9lBctIpB1kZRLZUKJlxNmr9J2e9Xb0TkdMhfPsYjhUZ0s0Yp5VJVrrrRATzIsDb2WZEDky1IHAEB6OaOND0")'}}></div>
+                            <div className="absolute -bottom-2 right-4 bg-brand-blue dark:bg-primary text-white dark:text-brand-blue p-3 rounded-full shadow-lg flex items-center justify-center">
+                                <span className="material-symbols-outlined text-[32px]">check</span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col items-center text-center space-y-2 mb-8">
+                            <h1 className="text-brand-blue dark:text-white tracking-tight text-[32px] font-bold leading-tight">
+                                Sessão Concluída
+                            </h1>
+                            <p className="text-brand-blue/70 dark:text-gray-300 text-base font-normal leading-relaxed max-w-[280px]">
+                                Parabéns pelo seu momento de paz. Sua mente está mais calma agora.
+                            </p>
+                        </div>
+                        <div className="w-full max-w-sm bg-white dark:bg-white/5 border border-brand-mint/50 dark:border-white/10 rounded-xl p-6 shadow-sm mb-6 flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <div className="bg-brand-mint/30 dark:bg-brand-mint/10 p-3 rounded-full text-brand-blue dark:text-brand-mint">
+                                    <span className="material-symbols-outlined">timer</span>
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-brand-blue/60 dark:text-gray-400 text-sm font-medium">Tempo Focado</span>
+                                    <span className="text-brand-blue dark:text-white text-xl font-bold">5 minutos</span>
+                                </div>
+                            </div>
+                            <span className="material-symbols-outlined text-primary dark:text-primary text-[24px]">verified</span>
+                        </div>
+                    </div>
+                    <div className="w-full flex flex-col gap-3 px-6 pb-12 pt-4 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark">
+                        <button onClick={() => navigate('/stats')} className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-6 bg-brand-blue hover:bg-brand-blue/90 text-white dark:bg-primary dark:text-brand-blue dark:hover:bg-primary/90 text-lg font-bold leading-normal tracking-wide transition-all shadow-md active:scale-95">
+                            <span className="material-symbols-outlined mr-2 text-[20px]">cloud_upload</span>
+                            <span className="truncate">Salvar Progresso na Nuvem</span>
+                        </button>
+                        <button onClick={() => navigate('/stats')} className="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-transparent text-brand-blue dark:text-white/80 font-medium hover:bg-brand-blue/5 dark:hover:bg-white/5 transition-colors">
+                            <span className="truncate">Ver Dashboard</span>
+                        </button>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 6: Login / Auth
+        const LoginScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="relative flex min-h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-background-light dark:bg-background-dark">
+                    <div className="absolute top-[-15%] right-[-15%] w-64 h-64 bg-brand-mint/30 rounded-full blur-3xl -z-0"></div>
+                    <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-0"></div>
+                    <div className="flex-1 flex flex-col items-center justify-center px-6 py-8 relative z-10 w-full">
+                        <div className="mb-6 w-full flex justify-center">
+                            <div className="w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white dark:border-[#23220f]">
+                                <div className="w-full h-full bg-center bg-cover" style={{backgroundImage: 'url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiSqrFM5QghciFNI1_C-lt_UPmOicLr-V5cBFXBLFF1nHWQi9U44ebHrf9muygGCmcHhiJfCkNxjvbUlArMriL0YlmCucAw0-uZxq-_NFd83h3wyKX2_coghlniClie4-tDPluL7-7ICHZ409VOQNyx6Aj3jd7vkM2AO0O28-ToCedMuYcAe3EpeHoegO80uA9iUBl1mnaAuVNL9M5C-LIgXibafLTLGYmI7vy8yo0UDe5AtofhDfHTtSRcT1WZlcN9ENso2Ik8Kc")'}}></div>
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-1 items-center mb-8">
+                            <h1 className="text-brand-blue dark:text-brand-mint text-4xl font-bold tracking-tight text-center">Soham</h1>
+                            <h2 className="text-brand-blue/80 dark:text-gray-300 text-lg font-medium tracking-tight text-center">Encontre o seu centro.</h2>
+                        </div>
+                        <div className="w-full flex flex-col gap-3">
+                            <button className="flex w-full cursor-pointer items-center justify-center rounded-full h-12 px-4 bg-white border border-gray-200 hover:bg-gray-50 transition-colors gap-3 relative overflow-hidden group">
+                                <svg className="w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.75h3.57c2.08-1.92 3.28-4.74 3.28-8.07z" fill="#4285F4"></path>
+                                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.75c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+                                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+                                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+                                </svg>
+                                <span className="text-brand-blue font-bold text-sm">Entrar com Google</span>
+                            </button>
+                            <button className="flex w-full cursor-pointer items-center justify-center rounded-full h-12 px-4 bg-[#1c1c0d] dark:bg-white dark:text-black text-white hover:opacity-90 transition-opacity gap-3">
+                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.45-1.02 3.65-.89 1.58.12 2.65.74 3.2 1.54-2.89 1.74-2.39 5.25.17 6.31-.5 1.48-1.22 2.89-2.1 3.27zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.54 4.5-3.74 4.25z"></path>
+                                </svg>
+                                <span className="font-bold text-sm">Entrar com Apple</span>
+                            </button>
+                        </div>
+                        <div className="relative w-full py-6 flex items-center">
+                            <div className="flex-grow border-t border-brand-blue/10 dark:border-white/10"></div>
+                            <span className="flex-shrink mx-4 text-xs font-semibold text-brand-blue/50 dark:text-white/40 uppercase tracking-wider">ou continuar com email</span>
+                            <div className="flex-grow border-t border-brand-blue/10 dark:border-white/10"></div>
+                        </div>
+                        <form className="w-full flex flex-col gap-4">
+                            <div className="relative flex items-center">
+                                <div className="absolute left-4 text-brand-blue/60 dark:text-brand-blue/60 z-10">
+                                    <span className="material-symbols-outlined text-[20px]">mail</span>
+                                </div>
+                                <input className="w-full h-12 pl-11 pr-4 rounded-full bg-brand-mint/30 dark:bg-brand-mint/80 border-none text-brand-blue placeholder:text-brand-blue/50 focus:ring-2 focus:ring-brand-blue/50 transition-all font-medium text-sm" placeholder="seu@email.com" type="email"/>
+                            </div>
+                            <div className="relative flex items-center">
+                                <div className="absolute left-4 text-brand-blue/60 dark:text-brand-blue/60 z-10">
+                                    <span className="material-symbols-outlined text-[20px]">lock</span>
+                                </div>
+                                <input className="w-full h-12 pl-11 pr-12 rounded-full bg-brand-mint/30 dark:bg-brand-mint/80 border-none text-brand-blue placeholder:text-brand-blue/50 focus:ring-2 focus:ring-brand-blue/50 transition-all font-medium text-sm" placeholder="Sua senha" type="password"/>
+                                <button className="absolute right-4 text-brand-blue/60 hover:text-brand-blue dark:text-brand-blue/60 z-10 flex items-center" type="button">
+                                    <span className="material-symbols-outlined text-[20px]">visibility</span>
+                                </button>
+                            </div>
+                            <div className="flex justify-end -mt-1">
+                                <a className="text-xs font-bold text-brand-blue/70 hover:text-brand-blue dark:text-brand-mint dark:hover:text-white transition-colors" href="#">
+                                    Esqueceu a senha?
+                                </a>
+                            </div>
+                            <button onClick={() => navigate('/stats')} className="w-full h-12 mt-2 rounded-full bg-primary hover:bg-yellow-300 active:scale-[0.98] transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 group" type="button">
+                                <span className="text-brand-blue font-bold text-base">Entrar</span>
+                                <span className="material-symbols-outlined text-brand-blue group-hover:translate-x-1 transition-transform text-[20px]">arrow_forward</span>
+                            </button>
+                        </form>
+                        <div className="mt-8 text-center">
+                            <p className="text-sm text-brand-blue/80 dark:text-gray-400">
+                                Não tem uma conta? 
+                                <a className="font-bold text-brand-blue hover:underline dark:text-brand-mint ml-1" href="#">Cadastre-se</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div className="h-6 w-full"></div>
+                </div>
+            );
+        };
+
+        // Screen 8: Patterns List
+        const PatternsListScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="bg-brand-blue h-screen w-full overflow-hidden text-white font-body selection:bg-brand-green selection:text-brand-blue">
+                    <div className="relative flex h-full w-full flex-col bg-brand-blue overflow-hidden max-w-md mx-auto shadow-2xl">
+                        <div className="flex items-center justify-between p-6 pt-12 pb-2 z-20 shrink-0">
+                            <button onClick={() => navigate(-1)} className="flex items-center justify-center size-10 -ml-2 rounded-full text-white/80 hover:bg-white/10 hover:text-white transition-colors cursor-pointer">
+                                <span className="material-symbols-outlined" style={{fontSize: '28px'}}>arrow_back</span>
+                            </button>
+                            <h1 className="text-xl font-display font-bold tracking-tight text-center flex-1 pr-8 text-white">Padrões de Respiração</h1>
+                        </div>
+                        <div className="flex-1 overflow-y-auto no-scrollbar px-4 pt-2 pb-32 space-y-4">
+                            <p className="text-brand-green/80 text-sm px-2 mb-2 font-medium">Escolha um ritmo para começar sua prática</p>
+                            
+                            {/* Selected Pattern */}
+                            <div onClick={() => navigate('/player-active')} className="relative w-full bg-brand-green rounded-[2rem] p-5 shadow-lg shadow-black/10 cursor-pointer transform transition-all hover:scale-[1.01] active:scale-[0.98] group">
+                                <div className="flex justify-between items-start mb-3">
+                                    <div className="flex flex-col">
+                                        <span className="text-[10px] uppercase font-bold tracking-widest text-brand-blue/60 mb-1">Selecionado</span>
+                                        <h3 className="text-brand-blue text-xl font-bold font-display leading-tight">Relaxamento 4-7-8</h3>
+                                    </div>
+                                    <div className="size-6 rounded-full border-2 border-brand-blue/20 flex items-center justify-center bg-white/20">
+                                        <div className="size-3 bg-brand-blue rounded-full"></div>
+                                    </div>
+                                </div>
+                                <div className="flex items-center gap-1.5 mb-4 opacity-80">
+                                    <div className="h-2 flex-1 rounded-full bg-brand-blue/80"></div>
+                                    <div className="h-2 flex-[1.75] rounded-full bg-brand-blue/60"></div>
+                                    <div className="h-2 flex-[2] rounded-full bg-brand-blue/40"></div>
+                                </div>
+                                <div className="flex justify-between text-brand-blue text-xs font-semibold tracking-wide opacity-80">
+                                    <div className="flex flex-col">
+                                        <span className="opacity-60 text-[10px] uppercase">Inspire</span>
+                                        <span>4s</span>
+                                    </div>
+                                    <div className="flex flex-col items-center">
+                                        <span className="opacity-60 text-[10px] uppercase">Segure</span>
+                                        <span>7s</span>
+                                    </div>
+                                    <div className="flex flex-col items-end">
+                                        <span className="opacity-60 text-[10px] uppercase">Expire</span>
+                                        <span>8s</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* List Item 2 */}
+                            <div className="relative w-full bg-white/5 border border-white/5 rounded-[2rem] p-5 cursor-pointer transform transition-all hover:bg-white/10 active:scale-[0.98]">
+                                <div className="flex justify-between items-center mb-1">
+                                    <h3 className="text-white text-lg font-bold font-display">Box Breathing</h3>
+                                    <span className="text-brand-green font-mono text-sm font-medium bg-brand-green/10 px-2 py-0.5 rounded-lg border border-brand-green/20">4-4-4-4</span>
+                                </div>
+                                <p className="text-white/60 text-sm leading-snug mb-3 pr-4">Foco e clareza mental. Ideal antes de tarefas importantes.</p>
+                                <div className="flex gap-2 opacity-40">
+                                    <div className="h-1.5 w-1/4 rounded-full bg-white"></div>
+                                    <div className="h-1.5 w-1/4 rounded-full bg-white"></div>
+                                    <div className="h-1.5 w-1/4 rounded-full bg-white"></div>
+                                    <div className="h-1.5 w-1/4 rounded-full bg-white"></div>
+                                </div>
+                            </div>
+                             {/* List Item 3 */}
+                             <div className="relative w-full bg-white/5 border border-white/5 rounded-[2rem] p-5 cursor-pointer transform transition-all hover:bg-white/10 active:scale-[0.98]">
+                                <div className="flex justify-between items-center mb-1">
+                                    <h3 className="text-white text-lg font-bold font-display">Equilíbrio</h3>
+                                    <span className="text-brand-green font-mono text-sm font-medium bg-brand-green/10 px-2 py-0.5 rounded-lg border border-brand-green/20">4-4</span>
+                                </div>
+                                <p className="text-white/60 text-sm leading-snug mb-3 pr-4">Restaura a calma e clareza. Ritmo natural e suave.</p>
+                                <div className="flex gap-2 opacity-40">
+                                    <div className="h-1.5 w-1/2 rounded-full bg-white"></div>
+                                    <div className="h-1.5 w-1/2 rounded-full bg-white"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-6 pb-8 bg-gradient-to-t from-brand-blue via-brand-blue to-transparent z-30 pointer-events-none flex justify-center">
+                            <button onClick={() => navigate('/create')} className="pointer-events-auto w-full max-w-[480px] h-14 bg-brand-green text-brand-blue rounded-full font-bold text-base flex items-center justify-center gap-2 shadow-xl shadow-black/20 hover:brightness-105 active:scale-[0.98] transition-all">
+                                <span className="material-symbols-outlined" style={{fontSize: '24px'}}>add_circle</span>
+                                Adicionar Respiração Personalizada
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Screen 9: Settings
+        const SettingsScreen = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="bg-brand-blue h-full w-full overflow-hidden text-white font-body min-h-screen">
+                    <div className="relative flex h-full w-full flex-col bg-brand-blue group/design-root overflow-hidden">
+                        <div className="flex items-center justify-between p-6 pt-12 absolute top-0 w-full z-20 bg-brand-blue/95 backdrop-blur-md border-b border-white/5">
+                            <div className="flex items-center gap-4">
+                                <button onClick={() => navigate(-1)} className="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full hover:bg-white/10 transition-colors text-white/80 hover:text-white min-w-0 p-0">
+                                    <span className="material-symbols-outlined" style={{fontSize: '24px'}}>arrow_back</span>
+                                </button>
+                                <h2 className="text-white text-xl font-display font-bold leading-tight tracking-tight pl-1">Configurações</h2>
+                            </div>
+                        </div>
+                        <div className="flex-1 overflow-y-auto w-full pt-28 pb-10 px-6">
+                            <div className="flex flex-col gap-8 pb-10">
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Geral</h3>
+                                    <div className="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+                                        <div className="flex items-center justify-between p-4 pr-2">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">dark_mode</span>
+                                                </div>
+                                                <span className="font-medium text-white/90">Tema</span>
+                                            </div>
+                                            <div className="flex bg-black/20 p-1 rounded-lg">
+                                                <button className="px-3 py-1.5 rounded-md text-xs font-medium text-white/60 hover:text-white transition-colors">Sistema</button>
+                                                <button className="px-3 py-1.5 rounded-md text-xs font-medium text-white/60 hover:text-white transition-colors">Light</button>
+                                                <button className="px-3 py-1.5 rounded-md text-xs font-bold bg-brand-green text-brand-blue shadow-sm">Dark</button>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between p-4 pr-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">smartphone</span>
+                                                </div>
+                                                <span className="font-medium text-white/90">Manter tela ligada</span>
+                                            </div>
+                                            <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-brand-green cursor-pointer">
+                                                <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-brand-blue transition"></span>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors cursor-pointer">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">notifications</span>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="font-medium text-white/90">Lembrete Diário</span>
+                                                    <span className="text-xs text-white/50">Toque para alterar</span>
+                                                </div>
+                                            </div>
+                                            <div className="bg-white/10 px-3 py-1.5 rounded-lg text-sm font-mono font-bold text-brand-green">
+                                                08:00 AM
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Imersão</h3>
+                                    <div className="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+                                        <div className="flex items-center justify-between p-4 pr-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">vibration</span>
+                                                </div>
+                                                <span className="font-medium text-white/90">Vibração Haptica</span>
+                                            </div>
+                                            <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-brand-green cursor-pointer">
+                                                <span className="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-brand-blue transition"></span>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-center justify-between p-4 pr-5">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">volume_up</span>
+                                                </div>
+                                                <span className="font-medium text-white/90">Sons de Fundo</span>
+                                            </div>
+                                            <div className="relative inline-flex h-6 w-11 items-center rounded-full bg-white/10 cursor-pointer">
+                                                <span className="translate-x-1 inline-block h-4 w-4 transform rounded-full bg-white/40 transition"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex flex-col gap-4">
+                                    <h3 className="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Conta</h3>
+                                    <div className="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+                                        <div className="flex items-center justify-between p-4 pr-4">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+                                                    <span className="material-symbols-outlined icon-filled">stars</span>
+                                                </div>
+                                                <div className="flex flex-col">
+                                                    <span className="font-medium text-white/90">Plano Atual</span>
+                                                    <span className="text-xs text-white/50">Gratuito</span>
+                                                </div>
+                                            </div>
+                                            <Link to="/premium" className="bg-gradient-to-r from-brand-green to-[#A0D9C0] text-brand-blue px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide shadow-lg hover:brightness-110 transition-all active:scale-95">
+                                                Upgrade Now
+                                            </Link>
+                                        </div>
+                                        <button className="w-full flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors text-left group">
+                                            <div className="flex items-center gap-3">
+                                                <div className="bg-white/5 p-2 rounded-xl text-white/70 group-hover:text-white transition-colors">
+                                                    <span className="material-symbols-outlined">restore</span>
+                                                </div>
+                                                <span className="font-medium text-white/80 group-hover:text-white transition-colors">Restaurar Compras</span>
+                                            </div>
+                                            <span className="material-symbols-outlined text-white/30 text-lg">chevron_right</span>
+                                        </button>
+                                        <button onClick={() => navigate('/')} className="w-full flex items-center justify-center p-4 hover:bg-red-500/10 transition-colors text-left group border-t border-white/5">
+                                            <span className="text-red-400 font-medium text-sm">Sair ou Deletar Conta</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // Profile Placeholder (reuses basic structure for navigation purposes)
+        const ProfileScreen = () => {
+             return (
+                <div className="relative flex h-auto min-h-screen w-full flex-col max-w-md mx-auto pb-24 p-6 text-center justify-center">
+                    <h1 className="text-2xl font-bold mb-4">Perfil do Usuário</h1>
+                    <p className="text-gray-500">Funcionalidade em desenvolvimento.</p>
+                    <Link to="/settings" className="mt-4 text-brand-blue font-bold">Configurações</Link>
+                    <BottomNav />
+                </div>
+             );
+        }
+
+        // --- Main App Component ---
+
+        const App = () => {
+            return (
+                <MemoryRouter>
+                    <Routes>
+                        <Route path="/" element={<LoginScreen />} />
+                        <Route path="/stats" element={<DashboardScreen />} />
+                        <Route path="/premium" element={<PremiumScreen />} />
+                        <Route path="/create" element={<CreateBreathingScreen />} />
+                        <Route path="/player-active" element={<ActivePlayerScreen />} />
+                        <Route path="/finished" element={<SessionCompletedScreen />} />
+                        <Route path="/patterns" element={<PatternsListScreen />} />
+                        <Route path="/settings" element={<SettingsScreen />} />
+                        <Route path="/profile" element={<ProfileScreen />} />
+                    </Routes>
+                </MemoryRouter>
+            );
+        };
+
+        const root = createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

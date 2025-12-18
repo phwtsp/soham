@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham Premium</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "brand-blue": "#084D75",
+                        "brand-mint": "#D1E9DE",
+                        "brand-blue-light": "#0B5A8A",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "2xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for clean mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-brand-blue text-white font-display antialiased selection:bg-brand-mint selection:text-brand-blue">
+<div class="relative flex h-full min-h-screen w-full max-w-md mx-auto flex-col overflow-x-hidden shadow-2xl">
+<!-- Top Bar -->
+<div class="absolute top-0 left-0 right-0 z-20 flex items-center justify-between p-4 pt-6">
+<button class="flex h-10 w-10 items-center justify-center rounded-full bg-black/20 text-white backdrop-blur-sm transition hover:bg-black/30">
+<span class="material-symbols-outlined" style="font-size: 24px;">close</span>
+</button>
+<div class="rounded-full bg-brand-mint/10 px-3 py-1 backdrop-blur-md">
+<span class="text-brand-mint text-xs font-bold uppercase tracking-wider">Premium</span>
+</div>
+</div>
+<!-- Header Image & Gradient -->
+<div class="relative h-[320px] w-full shrink-0">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Abstract serene gradient with soft blue and mint waves representing meditation" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB26Y9weXtVEfRKBRzvcnEZiiV5YC5gNiszRYrLHs1e96ibUXWROCLwxW_F-iVtdB-tSbXy2Y_x0QppZOvdFAJ9c6Mdyb1S8TrFjc0poPm14nUTUzTT1xjd-eEGqlz0GYSSs4JvloHLph2z5NJ0LlYB1FfOQL_O3rIe1yXxHKyg8tKivl0cF-5cu9bbTztZFDTvzHIUbIVwsx6Qn48DcXcRMUR6cWre86JVdy0x65VBAaiu9FnqMfBzQfUZPqg9z2lXaJ1Q81IXGVw");'>
+</div>
+<!-- Gradient Overlay to blend image into background -->
+<div class="absolute inset-0 bg-gradient-to-b from-brand-blue/30 via-brand-blue/60 to-brand-blue"></div>
+</div>
+<!-- Main Content -->
+<div class="relative z-10 -mt-20 flex flex-1 flex-col px-6 pb-6">
+<!-- Headline -->
+<div class="text-center mb-8">
+<h1 class="text-3xl font-bold leading-tight tracking-tight text-white drop-shadow-sm mb-2">
+                    Desbloqueie sua<br/><span class="text-brand-mint">Paz Interior</span>
+</h1>
+<p class="text-brand-mint/80 text-sm font-medium">Eleve sua prática e encontre o equilíbrio.</p>
+</div>
+<!-- Benefits Checklist -->
+<div class="space-y-4 mb-8">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">block</span>
+</div>
+<div>
+<h3 class="font-bold text-white text-base">Remover Anúncios</h3>
+<p class="text-brand-mint/70 text-xs">Navegue sem interrupções</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">schedule</span>
+</div>
+<div>
+<h3 class="font-bold text-white text-base">Tempos Personalizados</h3>
+<p class="text-brand-mint/70 text-xs">Medite no seu próprio ritmo</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 rounded-2xl bg-white/5 p-3 border border-white/5 backdrop-blur-sm">
+<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-mint/20 text-primary">
+<span class="material-symbols-outlined" style="font-size: 24px;">monitoring</span>
+</div>
+<div>
+<h3 class="font-bold text-white text-base">Gráficos Avançados</h3>
+<p class="text-brand-mint/70 text-xs">Acompanhe sua jornada diária</p>
+</div>
+</div>
+</div>
+<!-- Pricing Cards -->
+<div class="grid grid-cols-2 gap-3 mb-6">
+<!-- Yearly Card (Selected) -->
+<div class="relative flex cursor-pointer flex-col justify-between rounded-2xl border-2 border-primary bg-gradient-to-br from-brand-blue-light to-brand-blue p-4 shadow-lg ring-1 ring-primary/50 transition-transform active:scale-95">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-brand-blue shadow-sm">
+                        Economize 20%
+                    </div>
+<div class="mt-2">
+<p class="text-brand-mint/80 text-xs font-bold uppercase tracking-wider">Anual</p>
+<p class="mt-1 flex items-baseline gap-0.5">
+<span class="text-2xl font-bold text-white">R$ 199,90</span>
+</p>
+<p class="text-brand-mint/60 text-[10px]">apenas R$ 16,65/mês</p>
+</div>
+<div class="mt-3 flex justify-end">
+<span class="material-symbols-outlined text-primary fill-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</div>
+<!-- Monthly Card -->
+<div class="relative flex cursor-pointer flex-col justify-between rounded-2xl border border-white/10 bg-white/5 p-4 transition-transform active:scale-95 hover:bg-white/10">
+<div class="mt-2">
+<p class="text-brand-mint/80 text-xs font-bold uppercase tracking-wider">Mensal</p>
+<p class="mt-1 flex items-baseline gap-0.5">
+<span class="text-2xl font-bold text-white">R$ 19,90</span>
+</p>
+<p class="text-brand-mint/60 text-[10px]">Cobrado mensalmente</p>
+</div>
+<div class="mt-3 flex justify-end">
+<span class="material-symbols-outlined text-white/20">radio_button_unchecked</span>
+</div>
+</div>
+</div>
+<!-- CTA Button -->
+<button class="group relative w-full overflow-hidden rounded-full bg-primary py-4 text-brand-blue shadow-xl transition-all hover:bg-[#fffc4d] active:scale-[0.98]">
+<span class="absolute inset-0 bg-white/20 opacity-0 transition-opacity group-hover:opacity-100"></span>
+<span class="relative flex items-center justify-center gap-2 text-base font-bold uppercase tracking-wide">
+                    Assinar Agora
+                    <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</span>
+</button>
+<p class="mt-3 text-center text-xs text-brand-mint/50">Cancelamento grátis a qualquer momento.</p>
+<!-- Footer Actions -->
+<div class="mt-auto flex items-center justify-center gap-6 pt-6 pb-2">
+<button class="text-xs font-medium text-brand-mint/60 hover:text-white transition-colors">Restaurar Compras</button>
+<div class="h-1 w-1 rounded-full bg-brand-mint/20"></div>
+<button class="text-xs font-medium text-brand-mint/60 hover:text-white transition-colors">Termos de Uso</button>
+</div>
+</div>
+</div>
+</body></html>

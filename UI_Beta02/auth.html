@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham - Autenticação</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                        // Extending with brand colors as per request context
+                        "brand-blue": "#084D75",
+                        "brand-mint": "#D1E9DE",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-brand-blue selection:bg-brand-mint selection:text-brand-blue">
+<div class="relative flex min-h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-background-light dark:bg-background-dark">
+<!-- Background Decor Element -->
+<div class="absolute top-[-15%] right-[-15%] w-64 h-64 bg-brand-mint/30 rounded-full blur-3xl -z-0"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-primary/20 rounded-full blur-3xl -z-0"></div>
+<div class="flex-1 flex flex-col items-center justify-center px-6 py-8 relative z-10 w-full">
+<!-- Hero Image / Visual -->
+<div class="mb-6 w-full flex justify-center">
+<div class="w-32 h-32 rounded-full overflow-hidden shadow-lg border-4 border-white dark:border-[#23220f]">
+<div class="w-full h-full bg-center bg-cover" data-alt="Calming abstract nature gradient with blue and mint tones" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBiSqrFM5QghciFNI1_C-lt_UPmOicLr-V5cBFXBLFF1nHWQi9U44ebHrf9muygGCmcHhiJfCkNxjvbUlArMriL0YlmCucAw0-uZxq-_NFd83h3wyKX2_coghlniClie4-tDPluL7-7ICHZ409VOQNyx6Aj3jd7vkM2AO0O28-ToCedMuYcAe3EpeHoegO80uA9iUBl1mnaAuVNL9M5C-LIgXibafLTLGYmI7vy8yo0UDe5AtofhDfHTtSRcT1WZlcN9ENso2Ik8Kc");'>
+</div>
+</div>
+</div>
+<!-- Headlines -->
+<div class="flex flex-col gap-1 items-center mb-8">
+<h1 class="text-brand-blue dark:text-brand-mint text-4xl font-bold tracking-tight text-center">Soham</h1>
+<h2 class="text-brand-blue/80 dark:text-gray-300 text-lg font-medium tracking-tight text-center">Encontre o seu centro.</h2>
+</div>
+<!-- Social Login Buttons -->
+<div class="w-full flex flex-col gap-3">
+<!-- Google Button -->
+<button class="flex w-full cursor-pointer items-center justify-center rounded-full h-12 px-4 bg-white border border-gray-200 hover:bg-gray-50 transition-colors gap-3 relative overflow-hidden group">
+<svg class="w-5 h-5" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.75h3.57c2.08-1.92 3.28-4.74 3.28-8.07z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.75c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+<span class="text-brand-blue font-bold text-sm">Entrar com Google</span>
+</button>
+<!-- Apple Button -->
+<button class="flex w-full cursor-pointer items-center justify-center rounded-full h-12 px-4 bg-[#1c1c0d] dark:bg-white dark:text-black text-white hover:opacity-90 transition-opacity gap-3">
+<svg class="w-5 h-5 fill-current" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.74 1.18 0 2.45-1.02 3.65-.89 1.58.12 2.65.74 3.2 1.54-2.89 1.74-2.39 5.25.17 6.31-.5 1.48-1.22 2.89-2.1 3.27zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.54 4.5-3.74 4.25z"></path>
+</svg>
+<span class="font-bold text-sm">Entrar com Apple</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="relative w-full py-6 flex items-center">
+<div class="flex-grow border-t border-brand-blue/10 dark:border-white/10"></div>
+<span class="flex-shrink mx-4 text-xs font-semibold text-brand-blue/50 dark:text-white/40 uppercase tracking-wider">ou continuar com email</span>
+<div class="flex-grow border-t border-brand-blue/10 dark:border-white/10"></div>
+</div>
+<!-- Email Form -->
+<form class="w-full flex flex-col gap-4">
+<!-- Email Input -->
+<div class="relative flex items-center">
+<div class="absolute left-4 text-brand-blue/60 dark:text-brand-blue/60 z-10">
+<span class="material-symbols-outlined text-[20px]">mail</span>
+</div>
+<input class="w-full h-12 pl-11 pr-4 rounded-full bg-brand-mint/30 dark:bg-brand-mint/80 border-none text-brand-blue placeholder:text-brand-blue/50 focus:ring-2 focus:ring-brand-blue/50 transition-all font-medium text-sm" placeholder="seu@email.com" type="email"/>
+</div>
+<!-- Password Input -->
+<div class="relative flex items-center">
+<div class="absolute left-4 text-brand-blue/60 dark:text-brand-blue/60 z-10">
+<span class="material-symbols-outlined text-[20px]">lock</span>
+</div>
+<input class="w-full h-12 pl-11 pr-12 rounded-full bg-brand-mint/30 dark:bg-brand-mint/80 border-none text-brand-blue placeholder:text-brand-blue/50 focus:ring-2 focus:ring-brand-blue/50 transition-all font-medium text-sm" placeholder="Sua senha" type="password"/>
+<button class="absolute right-4 text-brand-blue/60 hover:text-brand-blue dark:text-brand-blue/60 z-10 flex items-center" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+<!-- Forgot Password Link -->
+<div class="flex justify-end -mt-1">
+<a class="text-xs font-bold text-brand-blue/70 hover:text-brand-blue dark:text-brand-mint dark:hover:text-white transition-colors" href="#">
+                        Esqueceu a senha?
+                    </a>
+</div>
+<!-- Submit Button -->
+<button class="w-full h-12 mt-2 rounded-full bg-primary hover:bg-yellow-300 active:scale-[0.98] transition-all shadow-md shadow-primary/20 flex items-center justify-center gap-2 group" type="button">
+<span class="text-brand-blue font-bold text-base">Entrar</span>
+<span class="material-symbols-outlined text-brand-blue group-hover:translate-x-1 transition-transform text-[20px]">arrow_forward</span>
+</button>
+</form>
+<!-- Footer Switch -->
+<div class="mt-8 text-center">
+<p class="text-sm text-brand-blue/80 dark:text-gray-400">
+                    Não tem uma conta? 
+                    <a class="font-bold text-brand-blue hover:underline dark:text-brand-mint ml-1" href="#">Cadastre-se</a>
+</p>
+</div>
+</div>
+<!-- Bottom spacing for aesthetics on scroll -->
+<div class="h-6 w-full"></div>
+</div>
+</body></html>

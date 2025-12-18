@@ -1,29 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// --- Session Model ---
-class Session {
-  final DateTime date;
-  final int duration; // em segundos
-  final String pattern;
-  final bool completed;
-
-  Session({
-    required this.date,
-    required this.duration,
-    required this.pattern,
-    required this.completed,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'date': Timestamp.fromDate(date),
-      'duration': duration,
-      'pattern': pattern,
-      'completed': completed,
-    };
-  }
-}
+import 'models.dart';
 
 // --- Session Repository ---
 class SessionRepository {
@@ -67,7 +45,9 @@ class SessionRepository {
         // Atualiza last_active ou similar se necessário
         'last_active': FieldValue.serverTimestamp(),
       },
-      SetOptions(merge: true), // Merge para não sobrescrever outros campos como email/is_premium
+      SetOptions(
+          merge:
+              true), // Merge para não sobrescrever outros campos como email/is_premium
     );
 
     await batch.commit();

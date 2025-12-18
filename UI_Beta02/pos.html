@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham - Sessão Concluída</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506", // Theme primary (Yellow)
+                        "soham-blue": "#084D75", // User primary (Deep Blue)
+                        "soham-mint": "#D1E9DE", // User secondary (Mint Green)
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        /* Smooth fade-in animation for post-ad reveal */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-reveal {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden">
+<div class="relative flex h-screen w-full flex-col justify-between overflow-y-auto animate-reveal">
+<!-- Top Navigation / Close -->
+<div class="flex items-center justify-end px-6 pt-12 pb-4">
+<button class="flex items-center justify-center p-2 rounded-full text-soham-blue dark:text-white hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[28px]">close</span>
+</button>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col items-center px-6 -mt-8 justify-center">
+<!-- Hero Image / Illustration -->
+<div class="relative w-full max-w-[280px] aspect-square mb-6">
+<div class="absolute inset-0 bg-soham-mint/30 dark:bg-soham-mint/10 rounded-full blur-2xl scale-90"></div>
+<div class="relative w-full h-full bg-center bg-contain bg-no-repeat" data-alt="Peaceful meditation illustration with lotus flower abstract shapes in blue and mint" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCTbNkCGliU4_LduMtIPhXSmdG0eMq1LdHeY0cgQ2PFkponKWXG0AtenHEnkjKDfMfp5T49QTmOcWEBO5v47pyAaM6TEVlfl76e976Av5ihQfGL-uoZdLaO58DzHMlbTPxCvIScyDyj8eHe6EbgxVEr8ui6BMLKQepbQOwogcWLHwFvvi7zBwctwhae9lBctIpB1kZRLZUKJlxNmr9J2e9Xb0TkdMhfPsYjhUZ0s0Yp5VJVrrrRATzIsDb2WZEDky1IHAEB6OaOND0");'>
+</div>
+<!-- Floating checkmark badge -->
+<div class="absolute -bottom-2 right-4 bg-soham-blue dark:bg-primary text-white dark:text-soham-blue p-3 rounded-full shadow-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[32px]">check</span>
+</div>
+</div>
+<!-- Headlines -->
+<div class="flex flex-col items-center text-center space-y-2 mb-8">
+<h1 class="text-soham-blue dark:text-white tracking-tight text-[32px] font-bold leading-tight">
+                    Sessão Concluída
+                </h1>
+<p class="text-soham-blue/70 dark:text-gray-300 text-base font-normal leading-relaxed max-w-[280px]">
+                    Parabéns pelo seu momento de paz. Sua mente está mais calma agora.
+                </p>
+</div>
+<!-- Stats Card -->
+<div class="w-full max-w-sm bg-white dark:bg-white/5 border border-soham-mint/50 dark:border-white/10 rounded-xl p-6 shadow-sm mb-6 flex items-center justify-between">
+<div class="flex items-center gap-4">
+<div class="bg-soham-mint/30 dark:bg-soham-mint/10 p-3 rounded-full text-soham-blue dark:text-soham-mint">
+<span class="material-symbols-outlined">timer</span>
+</div>
+<div class="flex flex-col">
+<span class="text-soham-blue/60 dark:text-gray-400 text-sm font-medium">Tempo Focado</span>
+<span class="text-soham-blue dark:text-white text-xl font-bold">5 minutos</span>
+</div>
+</div>
+<!-- Optional Spark/Icon for flair -->
+<span class="material-symbols-outlined text-primary dark:text-primary text-[24px]">verified</span>
+</div>
+</div>
+<!-- Bottom Actions -->
+<div class="w-full flex flex-col gap-3 px-6 pb-12 pt-4 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark">
+<!-- Primary CTA -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-6 bg-soham-blue hover:bg-soham-blue/90 text-white dark:bg-primary dark:text-soham-blue dark:hover:bg-primary/90 text-lg font-bold leading-normal tracking-wide transition-all shadow-md active:scale-95">
+<span class="material-symbols-outlined mr-2 text-[20px]">cloud_upload</span>
+<span class="truncate">Salvar Progresso na Nuvem</span>
+</button>
+<!-- Secondary Action -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-6 bg-transparent text-soham-blue dark:text-white/80 font-medium hover:bg-soham-blue/5 dark:hover:bg-white/5 transition-colors">
+<span class="truncate">Ver Dashboard</span>
+</button>
+</div>
+</div>
+</body></html>

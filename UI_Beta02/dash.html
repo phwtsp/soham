@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#f9f506",
+              "background-light": "#f8f8f5",
+              "background-dark": "#23220f",
+              "brand-blue": "#084D75",
+              "brand-green": "#D1E9DE",
+            },
+            fontFamily: {
+              "display": ["Spline Sans", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-brand-blue font-display overflow-x-hidden antialiased selection:bg-primary selection:text-brand-blue">
+<div class="relative flex h-auto min-h-screen w-full flex-col max-w-md mx-auto pb-24">
+<!-- Header -->
+<div class="flex items-center p-6 pb-2 justify-between">
+<h2 class="text-brand-blue text-2xl font-bold leading-tight tracking-tight flex-1">Estatísticas</h2>
+<div class="flex items-center justify-end gap-3">
+<button class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 w-10 bg-brand-green/30 hover:bg-brand-green/50 transition-colors text-brand-blue">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full bg-brand-blue overflow-hidden border-2 border-white shadow-sm">
+<img alt="User profile avatar showing a smiling woman" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGpEfjojPlP_JhbweV3Y822YXAQXtRvNSOE0uGgSjW7kPUcfhsetn_HplsfLaDXe9dqnTDv4a2T9lROeWYbLhHHO5PYp8z5GigdMMuya6o9-QFMiaLKsB-Ike7RxWje0R7eVJRqkT2UwJ7gSyHnoSeCve5vegnn3y1l3qsBlORPM97KxeoJxQ-68ejCxj0xrtNY0wlB26x5r3Bf1P6rjJGTEJNR5ve-IWwDnvd8l7O6magGM6cRxcE69ACHqxjUCq-xAAK1ncLjTU"/>
+</div>
+</div>
+</div>
+<!-- Streak Section -->
+<div class="px-6 py-4">
+<div class="relative overflow-hidden rounded-lg bg-brand-green p-6 shadow-sm">
+<!-- Abstract decorative circle -->
+<div class="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/20 blur-2xl"></div>
+<div class="flex items-center justify-between relative z-10">
+<div class="flex flex-col gap-1">
+<span class="text-brand-blue/70 text-sm font-semibold uppercase tracking-wider">Sequência Atual</span>
+<div class="flex items-baseline gap-2">
+<span class="text-brand-blue text-5xl font-bold leading-none tracking-tight">3</span>
+<span class="text-brand-blue text-lg font-medium">dias seguidos</span>
+</div>
+</div>
+<div class="flex items-center justify-center h-14 w-14 rounded-full bg-white shadow-sm text-brand-blue">
+<span class="material-symbols-outlined icon-filled text-[#f9bc06] !text-[32px]">local_fire_department</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart Section -->
+<div class="px-6 py-2">
+<div class="flex flex-col gap-4 rounded-lg bg-brand-green p-6 shadow-sm">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-brand-blue/80 text-sm font-semibold uppercase tracking-wider">Minutos por dia</p>
+<p class="text-brand-blue text-3xl font-bold leading-tight">135m <span class="text-base font-normal opacity-60">Total</span></p>
+</div>
+<div class="bg-white/40 px-3 py-1.5 rounded-full backdrop-blur-sm">
+<p class="text-brand-blue text-xs font-bold uppercase tracking-wide">Últimos 7 dias</p>
+</div>
+</div>
+<!-- Bar Chart -->
+<div class="mt-4 flex items-end justify-between gap-3 h-[180px]">
+<!-- Single Bar: Monday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out" style="height: 45%;"></div>
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">S</p>
+</div>
+<!-- Single Bar: Tuesday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out delay-75" style="height: 25%;"></div>
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">T</p>
+</div>
+<!-- Single Bar: Wednesday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out delay-100" style="height: 60%;"></div>
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">Q</p>
+</div>
+<!-- Single Bar: Thursday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out delay-150" style="height: 30%;"></div>
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">Q</p>
+</div>
+<!-- Single Bar: Friday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out delay-200" style="height: 0%;"></div> <!-- Skipped day -->
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">S</p>
+</div>
+<!-- Single Bar: Saturday -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center transition-all duration-300 group-hover:bg-brand-blue/20">
+<div class="w-full bg-brand-blue rounded-full transition-all duration-500 ease-out delay-200" style="height: 75%;"></div>
+</div>
+<p class="text-brand-blue/60 text-xs font-bold">S</p>
+</div>
+<!-- Single Bar: Sunday (Today) - Highlighted -->
+<div class="flex flex-1 flex-col items-center gap-3 h-full justify-end group cursor-pointer">
+<div class="relative w-full rounded-full bg-brand-blue/10 h-full overflow-hidden flex items-end justify-center">
+<!-- Using primary yellow for today -->
+<div class="w-full bg-primary rounded-full shadow-[0_0_15px_rgba(249,245,6,0.4)] transition-all duration-500 ease-out delay-300" style="height: 50%;"></div>
+</div>
+<p class="text-brand-blue font-extrabold text-xs">D</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Sessions Header -->
+<h2 class="text-brand-blue text-xl font-bold leading-tight px-6 text-left pb-3 pt-6">Sessões Recentes</h2>
+<!-- List Items -->
+<div class="flex flex-col gap-3 px-6">
+<!-- Item 1 -->
+<div class="flex items-center gap-4 bg-white p-2 pr-5 rounded-full shadow-sm border border-brand-green/30 hover:border-brand-green transition-colors">
+<div class="flex items-center justify-center rounded-full bg-brand-green shrink-0 h-12 w-12 text-brand-blue">
+<span class="material-symbols-outlined icon-filled">self_improvement</span>
+</div>
+<div class="flex flex-col flex-1 overflow-hidden">
+<p class="text-brand-blue text-base font-bold leading-snug truncate">Mindfulness</p>
+<div class="flex items-center gap-2 text-xs font-medium text-brand-blue/60">
+<span>Hoje</span>
+<span class="w-1 h-1 rounded-full bg-brand-blue/30"></span>
+<span>08:30</span>
+</div>
+</div>
+<div class="shrink-0 bg-background-light px-3 py-1 rounded-full">
+<p class="text-brand-blue text-sm font-semibold">15 min</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center gap-4 bg-white p-2 pr-5 rounded-full shadow-sm border border-brand-green/30 hover:border-brand-green transition-colors">
+<div class="flex items-center justify-center rounded-full bg-brand-green shrink-0 h-12 w-12 text-brand-blue">
+<span class="material-symbols-outlined icon-filled">bedtime</span>
+</div>
+<div class="flex flex-col flex-1 overflow-hidden">
+<p class="text-brand-blue text-base font-bold leading-snug truncate">Sono Profundo</p>
+<div class="flex items-center gap-2 text-xs font-medium text-brand-blue/60">
+<span>Ontem</span>
+<span class="w-1 h-1 rounded-full bg-brand-blue/30"></span>
+<span>22:15</span>
+</div>
+</div>
+<div class="shrink-0 bg-background-light px-3 py-1 rounded-full">
+<p class="text-brand-blue text-sm font-semibold">20 min</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center gap-4 bg-white p-2 pr-5 rounded-full shadow-sm border border-brand-green/30 hover:border-brand-green transition-colors">
+<div class="flex items-center justify-center rounded-full bg-brand-green shrink-0 h-12 w-12 text-brand-blue">
+<span class="material-symbols-outlined icon-filled">psychology</span>
+</div>
+<div class="flex flex-col flex-1 overflow-hidden">
+<p class="text-brand-blue text-base font-bold leading-snug truncate">Foco Intenso</p>
+<div class="flex items-center gap-2 text-xs font-medium text-brand-blue/60">
+<span>12 Out</span>
+<span class="w-1 h-1 rounded-full bg-brand-blue/30"></span>
+<span>14:00</span>
+</div>
+</div>
+<div class="shrink-0 bg-background-light px-3 py-1 rounded-full">
+<p class="text-brand-blue text-sm font-semibold">10 min</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating/Fixed Bottom Nav -->
+<div class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-brand-green/30 pb-safe pt-2 px-6">
+<div class="flex justify-around items-center h-16 max-w-md mx-auto">
+<button class="flex flex-col items-center gap-1 text-brand-blue/40 hover:text-brand-blue transition-colors">
+<span class="material-symbols-outlined text-[28px]">spa</span>
+<span class="text-[10px] font-bold">Início</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-brand-blue transition-colors">
+<span class="material-symbols-outlined icon-filled text-[28px]">bar_chart</span>
+<span class="text-[10px] font-bold">Estatísticas</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-brand-blue/40 hover:text-brand-blue transition-colors">
+<span class="material-symbols-outlined text-[28px]">person</span>
+<span class="text-[10px] font-bold">Perfil</span>
+</button>
+</div>
+</div>
+</body></html>

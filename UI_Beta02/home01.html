@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham - Breathing Player</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols (Exact Link Required) -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                        // Extending with Brand Colors for this specific player screen
+                        "brand-blue": "#084D75",
+                        "brand-green": "#D1E9DE",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark h-screen w-full overflow-hidden">
+<!-- Player Container (Overrides default background with Brand Blue for immersion) -->
+<div class="relative flex h-full w-full flex-col bg-brand-blue group/design-root overflow-hidden">
+<!-- Top Bar -->
+<div class="flex items-center justify-between p-4 pt-6 absolute top-0 w-full z-20">
+<div class="flex items-center">
+<!-- Brand / Logo Area -->
+<h2 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] opacity-90 pl-2">Soham</h2>
+</div>
+<div class="flex items-center justify-end">
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm text-white min-w-0 p-0">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-size: 24px;">account_circle</span>
+</button>
+</div>
+</div>
+<!-- Main Breathing Area -->
+<div class="flex-1 flex flex-col items-center justify-center relative w-full">
+<!-- Breathing Visual Core -->
+<div class="relative flex items-center justify-center mb-10">
+<!-- Concentric Rings (Static representation of expansion) -->
+<div class="absolute size-[340px] rounded-full border border-primary/10 opacity-40"></div>
+<div class="absolute size-[300px] rounded-full border border-primary/20 opacity-60"></div>
+<!-- Main Circle -->
+<div class="relative size-[260px] rounded-full bg-gradient-to-br from-[#0A5A8A] to-brand-blue shadow-[0_0_50px_rgba(249,245,6,0.15)] flex items-center justify-center overflow-hidden border border-white/10">
+<!-- Inner Texture/Pattern -->
+<div class="absolute inset-0 opacity-30 bg-cover bg-center mix-blend-overlay" data-alt="Soft abstract radial gradient representing calm energy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJt8QxVt2aMzkZJs3Phwmsf_7wT0-9H2XRYYsxhGIBs5ES8rt1796nK3CDbnrXnplxzl29U1PwS8V81_0W1N79ihi0YvfWJNanfjJJSKoIQdu82SgjkLd5Hr6KER97GYyVXadEDvgF-4s24NTDShf6TUjsobY1i2fhsCEHqiDITfaZeeNJ0cUyM6UWaYuxLgM9u7aR3tAGXmeRocEsWw5XVWlk7tWGZuPPwSY3nHazYTvdlqeE6Mn92QkkHcX88AxeH_OpbiZEjTs");'>
+</div>
+<!-- Inner Glow -->
+<div class="absolute inset-0 bg-primary/5 rounded-full"></div>
+<!-- Timer Text (Center of Circle) -->
+<div class="relative z-10 flex flex-col items-center justify-center text-center">
+<span class="text-white text-[64px] font-thin leading-none tracking-tighter">4<span class="text-2xl text-brand-green/80 ml-1">s</span></span>
+</div>
+</div>
+</div>
+<!-- Guidance Text -->
+<div class="flex flex-col gap-2 text-center z-10 px-4">
+<h1 class="text-white tracking-wide text-4xl font-bold leading-tight drop-shadow-lg">Inhale</h1>
+<p class="text-brand-green/70 text-base font-normal leading-normal">Deeply through your nose</p>
+</div>
+</div>
+<!-- Bottom Controls Area -->
+<div class="flex flex-col items-center justify-end pb-[70px] w-full z-20"> <!-- Padding for Ad Banner -->
+<!-- Pattern Selector Button -->
+<div class="flex px-4 py-3 justify-center w-full">
+<button class="flex min-w-[220px] max-w-[480px] cursor-pointer items-center justify-between overflow-hidden rounded-full h-14 px-1 bg-brand-green text-brand-blue gap-3 pl-6 pr-2 shadow-xl shadow-black/20 hover:scale-[1.02] transition-transform">
+<div class="flex flex-col items-start">
+<span class="text-[10px] uppercase font-bold tracking-widest opacity-60 text-brand-blue">Current Pattern</span>
+<span class="truncate text-base font-bold leading-none">4-7-8 Relaxation</span>
+</div>
+<!-- Icon Container -->
+<div class="size-10 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+<span class="material-symbols-outlined" data-icon="expand_less" style="font-size: 24px;">expand_less</span>
+</div>
+</button>
+</div>
+</div>
+<!-- AdMob Banner (Fixed Bottom) -->
+<div class="absolute bottom-0 left-0 right-0 h-[60px] bg-background-dark/95 border-t border-white/5 flex items-center justify-center z-50 backdrop-blur-md">
+<div class="flex flex-col items-center gap-1 opacity-50">
+<!-- Placeholder for Ad Content -->
+<span class="text-white/40 text-[10px] font-bold tracking-widest uppercase">Ad Space</span>
+<div class="w-32 h-1 bg-white/10 rounded-full"></div>
+</div>
+</div>
+</div>
+</body></html>

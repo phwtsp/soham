@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham - Configurações</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                        "brand-blue": "#084D75",
+                        "brand-green": "#D1E9DE",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {height: 100dvh;}
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-brand-blue h-full w-full overflow-hidden text-white font-body">
+<div class="relative flex h-full w-full flex-col bg-brand-blue group/design-root overflow-hidden">
+<div class="flex items-center justify-between p-6 pt-12 absolute top-0 w-full z-20 bg-brand-blue/95 backdrop-blur-md border-b border-white/5">
+<div class="flex items-center gap-4">
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full hover:bg-white/10 transition-colors text-white/80 hover:text-white min-w-0 p-0">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-white text-xl font-display font-bold leading-tight tracking-tight pl-1">Configurações</h2>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto w-full pt-28 pb-10 px-6">
+<div class="flex flex-col gap-8 pb-10">
+<div class="flex flex-col gap-4">
+<h3 class="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Geral</h3>
+<div class="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+<div class="flex items-center justify-between p-4 pr-2">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">dark_mode</span>
+</div>
+<span class="font-medium text-white/90">Tema</span>
+</div>
+<div class="flex bg-black/20 p-1 rounded-lg">
+<button class="px-3 py-1.5 rounded-md text-xs font-medium text-white/60 hover:text-white transition-colors">Sistema</button>
+<button class="px-3 py-1.5 rounded-md text-xs font-medium text-white/60 hover:text-white transition-colors">Light</button>
+<button class="px-3 py-1.5 rounded-md text-xs font-bold bg-brand-green text-brand-blue shadow-sm">Dark</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pr-5">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">smartphone</span>
+</div>
+<span class="font-medium text-white/90">Manter tela ligada</span>
+</div>
+<div class="relative inline-flex h-6 w-11 items-center rounded-full bg-brand-green cursor-pointer">
+<span class="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-brand-blue transition"></span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">notifications</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-white/90">Lembrete Diário</span>
+<span class="text-xs text-white/50">Toque para alterar</span>
+</div>
+</div>
+<div class="bg-white/10 px-3 py-1.5 rounded-lg text-sm font-mono font-bold text-brand-green">
+                                08:00 AM
+                            </div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Imersão</h3>
+<div class="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+<div class="flex items-center justify-between p-4 pr-5">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">vibration</span>
+</div>
+<span class="font-medium text-white/90">Vibração Haptica</span>
+</div>
+<div class="relative inline-flex h-6 w-11 items-center rounded-full bg-brand-green cursor-pointer">
+<span class="translate-x-6 inline-block h-4 w-4 transform rounded-full bg-brand-blue transition"></span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pr-5">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">volume_up</span>
+</div>
+<span class="font-medium text-white/90">Sons de Fundo</span>
+</div>
+<div class="relative inline-flex h-6 w-11 items-center rounded-full bg-white/10 cursor-pointer">
+<span class="translate-x-1 inline-block h-4 w-4 transform rounded-full bg-white/40 transition"></span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Conta</h3>
+<div class="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+<div class="flex items-center justify-between p-4 pr-4">
+<div class="flex items-center gap-3">
+<div class="bg-brand-green/10 p-2 rounded-xl text-brand-green">
+<span class="material-symbols-outlined icon-filled">stars</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-white/90">Plano Atual</span>
+<span class="text-xs text-white/50">Gratuito</span>
+</div>
+</div>
+<button class="bg-gradient-to-r from-brand-green to-[#A0D9C0] text-brand-blue px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wide shadow-lg hover:brightness-110 transition-all active:scale-95">
+                                Upgrade Now
+                            </button>
+</div>
+<button class="w-full flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors text-left group">
+<div class="flex items-center gap-3">
+<div class="bg-white/5 p-2 rounded-xl text-white/70 group-hover:text-white transition-colors">
+<span class="material-symbols-outlined">restore</span>
+</div>
+<span class="font-medium text-white/80 group-hover:text-white transition-colors">Restaurar Compras</span>
+</div>
+<span class="material-symbols-outlined text-white/30 text-lg">chevron_right</span>
+</button>
+<button class="w-full flex items-center justify-center p-4 hover:bg-red-500/10 transition-colors text-left group border-t border-white/5">
+<span class="text-red-400 font-medium text-sm">Sair ou Deletar Conta</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<h3 class="text-brand-green/70 text-xs font-bold tracking-widest uppercase pl-2">Sobre</h3>
+<div class="bg-white/5 rounded-3xl overflow-hidden border border-white/10 divide-y divide-white/5">
+<a class="flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors" href="#">
+<span class="font-medium text-white/80 pl-2">Política de Privacidade</span>
+<span class="material-symbols-outlined text-white/30 text-lg">open_in_new</span>
+</a>
+<a class="flex items-center justify-between p-4 pr-5 hover:bg-white/5 transition-colors" href="#">
+<span class="font-medium text-white/80 pl-2">Termos de Uso</span>
+<span class="material-symbols-outlined text-white/30 text-lg">open_in_new</span>
+</a>
+<div class="flex items-center justify-between p-4 pr-5 bg-white/[0.02]">
+<span class="font-medium text-white/50 text-sm pl-2">Versão</span>
+<span class="text-white/30 text-sm font-mono">1.0.0</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body></html>

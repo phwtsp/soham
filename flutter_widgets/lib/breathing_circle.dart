@@ -12,14 +12,14 @@ class BreathingCircle extends StatefulWidget {
   final Color color;
 
   const BreathingCircle({
-    Key? key,
+    super.key,
     required this.inhaleDuration,
     required this.holdDuration,
     required this.exhaleDuration,
     this.minSize = 100.0,
     this.maxSize = 200.0,
     this.color = Colors.blueAccent,
-  }) : super(key: key);
+  });
 
   @override
   _BreathingCircleState createState() => _BreathingCircleState();

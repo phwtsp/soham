@@ -1,56 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-// --- User Model ---
-class AppUser {
-  final String uid;
-  final String email;
-  final bool isPremium;
-  final UserStats stats;
-
-  AppUser({
-    required this.uid,
-    required this.email,
-    required this.isPremium,
-    required this.stats,
-  });
-
-  factory AppUser.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
-    final data = doc.data();
-    if (data == null) {
-      // Retorno padrão caso o documento ainda não exista
-      return AppUser(
-        uid: doc.id,
-        email: '',
-        isPremium: false,
-        stats: UserStats.zero(),
-      );
-    }
-    return AppUser(
-      uid: doc.id,
-      email: data['email'] ?? '',
-      isPremium: data['is_premium'] ?? false,
-      stats: UserStats.fromMap(data['stats'] ?? {}),
-    );
-  }
-}
-
-class UserStats {
-  final int totalSessions;
-  final int totalMinutes;
-
-  UserStats({required this.totalSessions, required this.totalMinutes});
-
-  factory UserStats.fromMap(Map<String, dynamic> map) {
-    return UserStats(
-      totalSessions: map['total_sessions'] ?? 0,
-      totalMinutes: map['total_minutes'] ?? 0,
-    );
-  }
-
-  factory UserStats.zero() => UserStats(totalSessions: 0, totalMinutes: 0);
-}
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
+import 'models.dart';
 
 // --- Providers ---
 
@@ -73,7 +27,9 @@ final userProvider = StreamProvider.autoDispose<AppUser?>((ref) {
       return FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
-          .snapshots(includeMetadataChanges: true) // Opcional: para saber se vem do cache
+          .snapshots(
+              includeMetadataChanges:
+                  true) // Opcional: para saber se vem do cache
           .map((doc) => AppUser.fromDocument(doc));
     },
     loading: () => Stream.value(null),
@@ -81,8 +37,63 @@ final userProvider = StreamProvider.autoDispose<AppUser?>((ref) {
   );
 });
 
+// Provider para CustomerInfo do RevenueCat
+final customerInfoProvider = StreamProvider.autoDispose<CustomerInfo?>((ref) {
+  if (kIsWeb) return Stream.value(null);
+
+  // Create a stream controller to bridge the listener
+  final controller = StreamController<CustomerInfo?>();
+
+  // Initial fetch
+  Purchases.getCustomerInfo()
+      .then((info) => controller.add(info))
+      .catchError((_) {});
+
+  // Listen for updates
+  Purchases.addCustomerInfoUpdateListener((info) {
+    if (!controller.isClosed) controller.add(info);
+  });
+
+  ref.onDispose(() {
+    controller.close();
+  });
+
+  return controller.stream;
+});
+
+// Provider para sincronizar Auth do Firebase com RevenueCat
+final revenueCatSyncProvider = Provider.autoDispose<void>((ref) {
+  final authUserAsync = ref.watch(authUserProvider);
+
+  authUserAsync.whenData((user) {
+    if (kIsWeb) return;
+
+    if (user != null) {
+      Purchases.logIn(user.uid);
+      Purchases.setEmail(user.email ?? "");
+    } else {
+      // Don't log out of RC necessarily, or maybe allow anonymous.
+      // Usually good to reset to anonymous if app user logs out.
+      // Purchases.logOut();
+      // But typically for this app flow, we can just leave it or handle explicit logout elsewhere.
+    }
+  });
+});
+
 // Apenas um atalho para saber se é premium
+// Checa RevenueCat ("Soham Pro") E Firestore (fallback/web)
 final isPremiumProvider = Provider.autoDispose<bool>((ref) {
+  // Ensure sync is active
+  ref.watch(revenueCatSyncProvider);
+
+  // 1. Check RevenueCat (Mobile / User-Verify)
+  final customerInfoAsync = ref.watch(customerInfoProvider);
+  final rcPremium =
+      customerInfoAsync.value?.entitlements.all['Soham Pro']?.isActive ?? false;
+
+  if (rcPremium) return true;
+
+  // 2. Check Firestore (Web / Cache / Webhook update)
   final userAsync = ref.watch(userProvider);
   return userAsync.value?.isPremium ?? false;
 });

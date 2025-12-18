@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Soham - Player de Respiração</title>
+<link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f9f506",
+                        "background-light": "#f8f8f5",
+                        "background-dark": "#23220f",
+                        "brand-blue": "#084D75",
+                        "brand-green": "#D1E9DE",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {height: 100dvh;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-brand-blue h-full w-full overflow-hidden text-white font-body">
+<div class="relative flex h-full w-full flex-col bg-brand-blue group/design-root overflow-hidden">
+<div class="flex items-center justify-between p-6 pt-12 absolute top-0 w-full z-20">
+<div class="flex items-center">
+<h2 class="text-white text-xl font-display font-bold leading-tight tracking-tight opacity-90 pl-1">Soham</h2>
+</div>
+<div class="flex items-center justify-end">
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-sm text-white min-w-0 p-0">
+<span class="material-symbols-outlined" style="font-size: 24px;">account_circle</span>
+</button>
+</div>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center relative w-full -mt-10">
+<div class="relative flex items-center justify-center mb-12">
+<div class="absolute size-[340px] rounded-full border border-brand-green/20 opacity-30 scale-105"></div>
+<div class="absolute size-[300px] rounded-full border border-brand-green/30 opacity-50"></div>
+<div class="relative size-[260px] rounded-full bg-gradient-to-br from-[#0A5A8A] to-brand-blue shadow-[0_0_60px_rgba(209,233,222,0.15)] flex items-center justify-center overflow-hidden border border-white/10">
+<div class="absolute inset-0 opacity-40 bg-cover bg-center mix-blend-overlay" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJt8QxVt2aMzkZJs3Phwmsf_7wT0-9H2XRYYsxhGIBs5ES8rt1796nK3CDbnrXnplxzl29U1PwS8V81_0W1N79ihi0YvfWJNanfjJJSKoIQdu82SgjkLd5Hr6KER97GYyVXadEDvgF-4s24NTDShf6TUjsobY1i2fhsCEHqiDITfaZeeNJ0cUyM6UWaYuxLgM9u7aR3tAGXmeRocEsWw5XVWlk7tWGZuPPwSY3nHazYTvdlqeE6Mn92QkkHcX88AxeH_OpbiZEjTs");'>
+</div>
+<div class="absolute inset-0 bg-brand-green/10 rounded-full"></div>
+<div class="relative z-10 flex flex-col items-center justify-center text-center">
+<span class="text-white text-[72px] font-display font-extralight leading-none tracking-tighter">4<span class="text-3xl font-normal text-brand-green/80 ml-1">s</span></span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 text-center z-10 px-6">
+<h1 class="text-white font-display tracking-wide text-5xl font-bold leading-tight drop-shadow-lg">Inspire</h1>
+<p class="text-brand-green/80 text-lg font-medium leading-normal">Profundamente pelo nariz</p>
+</div>
+</div>
+<div class="flex flex-col items-center justify-end pb-[90px] w-full z-20 gap-6">
+<button class="group flex items-center justify-center gap-2.5 px-6 py-2 rounded-full text-white/70 hover:text-white hover:bg-white/10 transition-all active:scale-95">
+<span class="material-symbols-outlined icon-filled" style="font-size: 24px;">stop_circle</span>
+<span class="text-sm font-bold tracking-widest uppercase">Finalizar</span>
+</button>
+<div class="flex px-6 justify-center w-full">
+<button class="flex w-full max-w-[400px] cursor-pointer items-center justify-between overflow-hidden rounded-2xl h-[72px] bg-brand-green text-brand-blue pl-6 pr-3 shadow-xl shadow-black/20 hover:brightness-105 active:scale-[0.98] transition-all">
+<div class="flex flex-col items-start gap-1">
+<span class="text-[10px] uppercase font-extrabold tracking-widest opacity-60 text-brand-blue">Padrão Atual</span>
+<span class="truncate text-lg font-display font-bold leading-none">4-7-8 Relaxamento</span>
+</div>
+<div class="size-12 rounded-xl bg-brand-blue/10 flex items-center justify-center text-brand-blue">
+<span class="material-symbols-outlined" style="font-size: 28px;">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-[60px] bg-[#05324d]/90 border-t border-white/5 flex items-center justify-center z-50 backdrop-blur-md">
+<div class="flex flex-col items-center gap-1 opacity-40">
+<span class="text-white text-[10px] font-bold tracking-widest uppercase">Publicidade</span>
+<div class="w-32 h-1 bg-white/20 rounded-full"></div>
+</div>
+</div>
+</div>
+
+</body></html>
